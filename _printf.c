@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
 * _printf - function to print a string
@@ -24,7 +25,7 @@ int _printf(const char *format, ...)
 		{
 			char c = (char) va_arg(args, int);
 
-			_putchar(c);
+			putchar(c);
 			len--;
 			i++;
 			continue;
@@ -38,7 +39,7 @@ int _printf(const char *format, ...)
 			len--;
 			continue;
 		}
-		_putchar(format[i]);
+		putchar(format[i]);
 	}
 	va_end(args);
 	return (len);
