@@ -1,4 +1,16 @@
-#include <stdio.h>
+#include <unistd.h>
+
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
 /**
 * _strlen - function to print length of a string
 * @s: string to find the legth of
@@ -27,7 +39,22 @@ void print_string(char *s)
 {
 	while (*s != '\0')
 	{
-		putchar(*s);
+		_putchar(*s);
+		s++;
+	}
+}
+
+/**
+* print_null - function to print (null)
+* Return - nothing
+*/
+void print_null(void)
+{
+	char *s = "(null)";
+
+	while (*s != '\0')
+	{
+		_putchar(*s);
 		s++;
 	}
 }
