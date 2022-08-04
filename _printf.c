@@ -22,6 +22,7 @@ int _printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1] == 'c')
 		{
 			char c = (char) va_arg(args, int);
+
 			putchar(c);
 			r_len++;
 			i++;
