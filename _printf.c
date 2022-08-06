@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 		{'%', op_percent}
 	};
 
-	int i, j, len, r_len = 0;
+	int i, j, len, null_flag, r_len = 0;
 	va_list args;
 
 	if (format == NULL)
@@ -24,23 +24,23 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	for (i = 0; i < len; i++)
 	{
+		null_flag = 0;
+
 		if (format[i] == '%' && format[i + 1] == '\0')
 			return (-1);
-
-		for (j = 0; j < 3; j++)
+		if (format[i] == '%')
 		{
-			if (format[i] == '%' && format[i + 1] == ops[j].a)
-			{
-			ops[j].f(&args, &r_len);
-			i += 2;
-			break;
-			}
+			for (j = 0; j < 3; j++)
+				if (format[i + 1] == ops[j].a)
+				{
+				ops[j].f(&args, &r_len);
+				null_flag = 1, i++;
+				}
 		}
-		if (format[i] != '\0')
-		{
-			_putchar(format[i]);
-			r_len++;
-		}
+		if (null_flag == 1)
+			continue;
+		_putchar(format[i]);
+		r_len++;
 	}
 	va_end(args);
 	return (r_len);
