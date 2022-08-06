@@ -26,22 +26,20 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[i + 1] == '\0')
 			return (-1);
-		else if (format[i] == '%')
+
+		for (j = 0; j < 3; j++)
 		{
-			for (j = 0; j < 3; j++)
-			{
-			if (format[i + 1] == ops[j].a)
+			if (format[i] == '%' && format[i + 1] == ops[j].a)
 			{
 			ops[j].f(&args, &r_len);
-			i++;
+			i += 2;
 			break;
 			}
-			}
 		}
-		else
+		if (format[i] != '\0')
 		{
-		_putchar(format[i]);
-		r_len++;
+			_putchar(format[i]);
+			r_len++;
 		}
 	}
 	va_end(args);
