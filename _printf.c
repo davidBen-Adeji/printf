@@ -34,11 +34,14 @@ int _printf(const char *format, ...)
 				if (format[i + 1] == ops[j].a)
 				{
 				ops[j].f(&args, &r_len);
-				null_flag = 1, i++;
+				null_flag = 1;
 				}
 		}
 		if (null_flag == 1)
+		{
+			i++;
 			continue;
+		}
 		_putchar(format[i]);
 		r_len++;
 	}
