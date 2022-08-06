@@ -8,39 +8,41 @@
 */
 int _printf(const char *format, ...)
 {
-	int i, len = _strlen(format), r_len = 0;
+	spec_t ops[] = {
+		{'c', op_char},
+		{'s', op_string},
+		{'%', op_percent}
+	};
+
+	int i, j, len, r_len = 0;
 	va_list args;
+
+	if (format == NULL)
+		return (-1);
+	len = _strlen(format);
 
 	va_start(args, format);
 	for (i = 0; i < len; i++)
 	{
-		if (format[i] == '%' && format[i + 1] == 'c')
+		if (format[i] == '%' && format[i + 1] == '\0')
+			return (-1);
+		else if (format[i] == '%')
 		{
-			char c = (char) va_arg(args, int);
-
-			_putchar(c);
-			r_len++, i++;
-			continue;
-		}
-		if (format[i] == '%' && format[i + 1] == 's')
-		{
-			char *s = va_arg(args, char *);
-
-			if (s != NULL)
+			for (j = 0; j < 3; j++)
 			{
-			print_string(s);
-			r_len += _strlen(s), i++;
-			continue;
+			if (format[i + 1] == ops[j].a)
+			{
+			ops[j].f(&args, &r_len);
+			i++;
+			break;
 			}
-			else
-			{
-			print_null();
-			r_len += 6, i++;
-			continue;
 			}
 		}
+		else
+		{
 		_putchar(format[i]);
 		r_len++;
+		}
 	}
 	va_end(args);
 	return (r_len);
