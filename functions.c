@@ -71,8 +71,18 @@ void print_decimal(int d, int *r_len)
 	if (d == 0)
 		return;
 
-	mod = d % 10;
-	div = d / 10;
+	if (d < 0)
+	{
+		_putchar('-');
+		*r_len = *r_len + 1;
+		mod = (d % -10) * -1;
+		div = d / -10;
+	}
+	else
+	{
+		mod = d % 10;
+		div = d / 10;
+	}
 
 	print_decimal(div, r_len);
 
