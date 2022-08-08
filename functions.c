@@ -58,3 +58,24 @@ void print_null(void)
 		s++;
 	}
 }
+
+/**
+* print_decimal - function to print an integer
+* @d: integer to print
+* @r_len: return lenght
+*/
+void print_decimal(int d, int *r_len)
+{
+	int mod, div;
+
+	if (d == 0)
+		return;
+
+	mod = d % 10;
+	div = d / 10;
+
+	print_decimal(div, r_len);
+
+	_putchar(mod + '0');
+	*r_len = *r_len + 1;
+}
